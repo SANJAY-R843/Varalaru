@@ -1,0 +1,209 @@
+.accordion-gallery {
+  display: flex;
+  align-self: center;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: min(90vw, 1400px);
+  max-width: 100%;
+  height: var(--gallery-height);
+  gap: var(--gallery-gap);
+  margin-inline: auto;
+}
+
+.accordion-gallery.is-horizontal {
+  flex-direction: row;
+}
+
+.accordion-gallery.is-vertical {
+  flex-direction: column;
+}
+
+.accordion-slide {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  flex: var(--inactive-ratio) 1 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--gallery-radius);
+  background: #11100e;
+  color: var(--text-color);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  contain: layout paint;
+  transform: perspective(900px) rotateY(0deg);
+  transition: flex var(--gallery-transition), border-color var(--gallery-transition), transform var(--gallery-transition);
+}
+
+.accordion-gallery.is-horizontal .accordion-slide.is-active {
+  flex: var(--expand-ratio) 1 0;
+  border-color: color-mix(in srgb, var(--accent-color) 58%, transparent);
+  transform: perspective(900px) rotateY(calc(var(--gallery-tilt) * -0.12));
+}
+
+.accordion-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate3d(calc(var(--gallery-parallax) * -8%), 0, 0) scale(1.06);
+  transition: filter var(--gallery-transition), transform var(--gallery-transition);
+}
+
+.accordion-slide.is-active img {
+  transform: translate3d(0, 0, 0) scale(1.02);
+  will-change: transform;
+}
+
+.accordion-slide img.is-grayscale {
+  filter: grayscale(1) contrast(1.05);
+}
+
+.accordion-slide.is-active img.is-grayscale {
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.accordion-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, var(--overlay-color));
+  opacity: 0.85;
+  transition: opacity var(--gallery-transition);
+}
+
+.accordion-slide.is-active .accordion-shade {
+  opacity: 0.68;
+}
+
+.card-bottom {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  left: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--text-color);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+  opacity: 1;
+  transition: opacity var(--gallery-transition), transform var(--gallery-transition);
+}
+
+.accordion-slide:not(.is-active) .card-bottom {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+.card-bottom.is-content-visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: none;
+  transform: translateY(0);
+}
+
+.card-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.accordion-number {
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.card-info > span:last-child {
+  display: block;
+}
+
+.card-info strong {
+  display: block;
+  color: #ffffff;
+  font-size: clamp(15px, 1.4vw, 21px);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.card-info small {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.card-timeline {
+  flex-shrink: 0;
+  max-width: 46%;
+  margin: 0 0 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-align: right;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.accordion-slide:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+  .accordion-gallery {
+    height: min(520px, 68vh);
+    gap: 6px;
+  }
+
+  .accordion-gallery.is-horizontal {
+    flex-direction: column;
+  }
+
+  .accordion-gallery.is-horizontal .accordion-slide.is-active {
+    flex: 1.8 1 0;
+    transform: none;
+  }
+
+  .accordion-gallery.is-horizontal .accordion-slide:not(.is-active) {
+    flex: 0.55 1 0;
+  }
+
+  .card-bottom {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    gap: 8px;
+  }
+
+  .card-info small {
+    max-width: 140px;
+    line-height: 1.3;
+  }
+
+  .card-timeline {
+    max-width: 46%;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 420px) {
+  .card-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-timeline {
+    max-width: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+}

@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background: black;
+}
+
+.intro {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main intro video */
+
+.intro-video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* Enter button */
+
+.enter-button {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10%;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  padding: 14px 28px;
+
+  background: transparent;
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  font-size: 14px;
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.4s ease,
+    background 0.3s ease;
+}
+
+.enter-button:hover {
+  background: white;
+  color: black;
+}
+
+/* Transition video */
+
+.overlay-video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 20;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transform: scale(1.15);
+
+  transition:
+    opacity 0.5s ease,
+    transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* When entering */
+
+.overlay-video.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Actual website */
+
+.website {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #050505;
+  color: white;
+}
+
+.website h1 {
+  font-size: 60px;
+}
